@@ -1,0 +1,23 @@
+#
+# User-defined substitutions:
+#   _CLOUDSDK_COMPUTE_ZONE
+#   _CLOUDSDK_CONTAINER_CLUSTER
+#   _GITHUB_USERNAME
+#   _GITHUB_OWNER
+#   _GITHUB_DEPLOY_REPO
+#   _GITHUB_SERVICE_NAME
+#   _KMS_KEY
+#   _KMS_KEYRING
+#
+  
+steps:
+  # Build the pipeline container image.
+  - name: 'gcr.io/cloud-buildedocker-credential-gcr configure-dockerrs/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/${PROJECT_ID}/${_GITHUB_SERVICE_NAME}:${COMMIT_SHA}'
+      - '.'
+
+images:
+  - 'gcr.io/${PROJECT_ID}/${_GITHUB_SERVICE_NAME}:${COMMIT_SHA}'
